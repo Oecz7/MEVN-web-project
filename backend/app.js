@@ -8,17 +8,32 @@ const app = express();
 
 //database connection
 import mongoose from 'mongoose';
-const uri = 'mongodb://localhost:27017/projectdb';
-const options = {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-}
-mongoose.connect(uri, options).then(
-    () => {console.log('Connected to MongoDB'); },
-    err => { err }
-);
 
+mongoose.connect("mongodb+srv://user_udla:udla2021@petshop.sdd7l.mongodb.net/projectdb?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+});
+
+// const uri = 'mongodb://localhost:27017/projectdb';
+// const options = {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useUnifiedTopology: true
+// }
+
+// mongoose.connect(uri, options).then(
+//     () => {console.log('Connected to MongoDB'); },
+//     err => { err }
+// );
+
+const db = mongoose.connection;
+
+if(!db){
+    console.log('Error connenctig MongoDB');
+}else{
+    console.log('Mongo Db connection successfuly');
+};
 //Middlewares
 app.use(morgan('tiny'));
 app.use(cors());
